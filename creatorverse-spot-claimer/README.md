@@ -1,6 +1,6 @@
 # Creatorverse Spot Claimer (Chrome extension)
 
-Watches campaign pages on **app.creatorverse.xyz**, automatically clicks the
+Watches campaign pages on **app.thecreatorverse.xyz**, automatically clicks the
 **Claim** button the instant a spot becomes available, and sends you a
 **Telegram** message so you know there's a new task waiting.
 

@@ -29,8 +29,8 @@ $("enabled").addEventListener("change", (e) => {
 $("learn").addEventListener("click", async () => {
   await chrome.storage.local.set({ learnMode: true });
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (!tab || !/^https:\/\/app\.creatorverse\.xyz/.test(tab.url || "")) {
-    $("selector").innerHTML = '<span class="bad">Open app.creatorverse.xyz first, then try again.</span>';
+  if (!tab || !/^https:\/\/app\.(the)?creatorverse\.xyz/.test(tab.url || "")) {
+    $("selector").innerHTML = '<span class="bad">Open app.thecreatorverse.xyz first, then try again.</span>';
     await chrome.storage.local.set({ learnMode: false });
     return;
   }
