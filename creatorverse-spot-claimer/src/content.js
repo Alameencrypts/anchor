@@ -224,6 +224,64 @@
     }, 6000);
   }
 
+  // ---- persistent status pill ----------------------------------------------
+
+  // Matches Creatorverse's "no spots" empty state so we can show a clear
+  // "watching / refreshing" status instead of looking idle.
+  const EMPTY_RE = /(all spots claimed|no spots available|fully claimed)/i;
+
+  function pageIsEmpty() {
+    const t = document.body ? document.body.innerText : "";
+    return EMPTY_RE.test(t);
+  }
+
+  let pill = null;
+  function setPill(text, color) {
+    if (!pill) {
+      pill = document.createElement("div");
+      Object.assign(pill.style, {
+        position: "fixed",
+        bottom: "12px",
+        left: "12px",
+        zIndex: "2147483646",
+        padding: "7px 11px",
+        borderRadius: "999px",
+        font: "600 12px/1 system-ui, sans-serif",
+        color: "#fff",
+        boxShadow: "0 4px 14px rgba(0,0,0,.2)"
+      });
+      document.documentElement.appendChild(pill);
+    }
+    pill.style.background = color;
+    pill.textContent = text;
+    pill.style.display = "block";
+  }
+
+  function refreshStatus() {
+    if (!config.enabled) {
+      if (pill) pill.style.display = "none";
+      return;
+    }
+    if (config.learnMode) {
+      setPill("👆 Learn mode: click the Claim button", "#2563eb");
+      return;
+    }
+    if (findClaimButton()) {
+      setPill("🎯 Spot found — claiming!", "#16a34a");
+      return;
+    }
+    if (pageIsEmpty()) {
+      setPill(
+        config.autoRefreshSeconds > 0
+          ? `⏳ No spots — rechecking every ${config.autoRefreshSeconds}s`
+          : "⏳ No spots — turn on Auto-refresh in Settings",
+        "#b45309"
+      );
+      return;
+    }
+    setPill("👀 Watching for spots…", "#2563eb");
+  }
+
   // ---- wiring --------------------------------------------------------------
 
   chrome.runtime.onMessage.addListener((msg) => {
@@ -243,18 +301,26 @@
     if (relevant) {
       scheduleRefresh();
       tryClaim();
+      refreshStatus();
     }
   });
 
   function start() {
-    const observer = new MutationObserver(() => tryClaim());
+    const observer = new MutationObserver(() => {
+      tryClaim();
+      refreshStatus();
+    });
     observer.observe(document.documentElement, { childList: true, subtree: true });
 
     // Belt-and-suspenders: also poll, in case the SPA mutates without bubbling.
-    scanTimer = setInterval(() => tryClaim(), 1500);
+    scanTimer = setInterval(() => {
+      tryClaim();
+      refreshStatus();
+    }, 1500);
 
     scheduleRefresh();
     tryClaim();
+    refreshStatus();
     log("Active on", location.host, "enabled =", config.enabled);
   }
 

@@ -59,6 +59,20 @@ Watches campaign pages on **app.thecreatorverse.xyz**, automatically clicks the
 | Auto-refresh every N seconds | Reload the page while waiting (0 = off). |
 | Re-claim cooldown | Stops it re-clicking the same spot repeatedly. |
 
+## Waiting for spots to free up
+
+A raid often shows **"All Spots Claimed / No Spots Available"**. Spots open up
+when a creator's submission window expires, so to catch one you must let the
+extension re-check the page:
+
+- Turn on **Auto-refresh every N seconds** in Settings (≈30–60s is reasonable;
+  don't set it very low).
+- A status pill in the bottom-left corner shows what it's doing: *watching*,
+  *no spots — rechecking*, or *spot found — claiming*.
+- The default keyword `claim spot` already matches the live button, so you
+  usually don't need Learn mode here (and the button only exists while a spot is
+  open, which makes it hard to learn anyway).
+
 ## Notes & limits
 
 - The extension can only claim what a normal click would — if Creatorverse
