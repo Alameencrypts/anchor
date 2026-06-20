@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Creatorverse Spot Claimer",
+  "version": "1.0.0",
+  "description": "Auto-claims campaign spots on app.creatorverse.xyz and sends you a Telegram notification when a spot is claimed.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://app.creatorverse.xyz/*",
+    "https://api.telegram.org/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_title": "Creatorverse Spot Claimer",
+    "default_popup": "src/popup.html"
+  },
+  "options_page": "src/options.html",
+  "content_scripts": [
+    {
+      "matches": ["https://app.creatorverse.xyz/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

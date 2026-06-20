@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body { font: 13px/1.4 system-ui, sans-serif; width: 280px; margin: 0; padding: 14px; color: #111; }
+      h1 { font-size: 14px; margin: 0 0 10px; }
+      .row { display: flex; align-items: center; justify-content: space-between; margin: 10px 0; }
+      button { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; }
+      button.primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+      button.block { width: 100%; }
+      .switch { display: inline-flex; align-items: center; gap: 8px; }
+      .status { font-size: 12px; color: #6b7280; }
+      .ok { color: #16a34a; } .bad { color: #dc2626; }
+      code { background: #f3f4f6; padding: 1px 4px; border-radius: 4px; font-size: 11px; word-break: break-all; }
+      hr { border: none; border-top: 1px solid #eee; margin: 12px 0; }
+      a { color: #2563eb; }
+    </style>
+  </head>
+  <body>
+    <h1>🎯 Creatorverse Spot Claimer</h1>
+
+    <div class="row">
+      <label class="switch"><input type="checkbox" id="enabled" /> <b>Auto-claim enabled</b></label>
+    </div>
+    <div class="status" id="status">—</div>
+
+    <hr />
+
+    <button id="learn" class="block">👆 Learn the Claim button</button>
+    <div class="status" id="selector" style="margin-top:6px"></div>
+
+    <hr />
+
+    <button id="test" class="block">📨 Send test Telegram message</button>
+    <div class="status" id="testResult" style="margin-top:6px"></div>
+
+    <hr />
+    <button id="options" class="block primary">⚙️ Settings (Telegram &amp; options)</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

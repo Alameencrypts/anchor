@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Creatorverse Spot Claimer — Settings</title>
+    <style>
+      body { font: 14px/1.5 system-ui, sans-serif; max-width: 640px; margin: 24px auto; padding: 0 18px; color: #111; }
+      h1 { font-size: 20px; }
+      h2 { font-size: 15px; margin-top: 26px; }
+      label { display: block; font-weight: 600; margin: 14px 0 4px; }
+      input[type="text"], input[type="number"], textarea {
+        width: 100%; padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; box-sizing: border-box;
+      }
+      .hint { color: #6b7280; font-size: 12.5px; margin-top: 4px; }
+      .check { display: flex; align-items: center; gap: 8px; margin: 16px 0; font-weight: 600; }
+      .check input { width: auto; }
+      button { font: inherit; padding: 9px 16px; border-radius: 8px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; }
+      button.primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+      .actions { margin-top: 22px; display: flex; gap: 10px; align-items: center; }
+      #saved { color: #16a34a; font-weight: 600; }
+      .card { background: #f9fafb; border: 1px solid #eee; border-radius: 10px; padding: 14px 16px; }
+      code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; }
+      ol { padding-left: 20px; }
+      a { color: #2563eb; }
+    </style>
+  </head>
+  <body>
+    <h1>🎯 Creatorverse Spot Claimer</h1>
+
+    <div class="check">
+      <input type="checkbox" id="enabled" />
+      <label for="enabled" style="margin:0">Auto-claim enabled</label>
+    </div>
+
+    <h2>Telegram notifications</h2>
+    <div class="card">
+      <ol>
+        <li>In Telegram, message <a href="https://t.me/BotFather" target="_blank">@BotFather</a> → <code>/newbot</code> → copy the <b>bot token</b>.</li>
+        <li>Open a chat with your new bot and send it any message (e.g. "hi").</li>
+        <li>Get your <b>chat ID</b>: message <a href="https://t.me/userinfobot" target="_blank">@userinfobot</a>, or visit
+          <code>https://api.telegram.org/bot&lt;token&gt;/getUpdates</code> and read <code>chat.id</code>.</li>
+      </ol>
+    </div>
+
+    <label for="telegramToken">Bot token</label>
+    <input type="text" id="telegramToken" placeholder="123456789:ABCdef..." autocomplete="off" />
+
+    <label for="telegramChatId">Chat ID</label>
+    <input type="text" id="telegramChatId" placeholder="123456789" autocomplete="off" />
+
+    <h2>Claim detection</h2>
+    <label for="claimKeywords">Claim button keywords (comma-separated)</label>
+    <input type="text" id="claimKeywords" placeholder="claim spot, claim, take spot" />
+    <div class="hint">Button text that triggers a claim. Matching is case-insensitive and partial.</div>
+
+    <label for="claimSelector">Learned button selector (optional)</label>
+    <input type="text" id="claimSelector" placeholder="(set via 'Learn the Claim button' in the popup)" />
+    <div class="hint">If set, this exact element is preferred. Leave blank to rely on keywords. Clear it to re-learn.</div>
+
+    <h2>Timing</h2>
+    <label for="autoRefreshSeconds">Auto-refresh page every N seconds (0 = off)</label>
+    <input type="number" id="autoRefreshSeconds" min="0" step="1" />
+    <div class="hint">Useful if spots only appear after a reload. Don't set this too low.</div>
+
+    <label for="cooldownSeconds">Re-claim cooldown (seconds)</label>
+    <input type="number" id="cooldownSeconds" min="0" step="1" />
+    <div class="hint">Prevents claiming the same spot twice in quick succession.</div>
+
+    <div class="actions">
+      <button id="save" class="primary">Save</button>
+      <button id="test">Send test message</button>
+      <span id="saved"></span>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>
